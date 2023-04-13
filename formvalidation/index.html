@@ -19,7 +19,7 @@
         <form class="form" id="form">
             <div class="form-control">
                 <label>Name</label>
-                <input type="text" name="" id="name" placeholder="Enter your Name" autocomplete="off">
+                <input type="text" name="" id="name" placeholder="Enter your Name" autocomplete="off" required>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error Message</small>
@@ -27,7 +27,7 @@
 
             <div class="form-control">
                 <label>System Id </label>
-                <input type="number" name="" id="systemid" placeholder="Enter your System Id" autocomplete="off">
+                <input type="number" name="" id="systemid" placeholder="Enter your System Id" autocomplete="off" required>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error Message</small>
@@ -35,7 +35,7 @@
 
             <div class="form-control">
                 <label>Email</label>
-                <input type="email" name="" id="email" placeholder="Enter your Email" autocomplete="off">
+                <input type="email" name="" id="email" placeholder="Enter your Email" autocomplete="off" required>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error Message</small>
@@ -43,7 +43,7 @@
 
             <div class="form-control">
                 <label>Phone Number</label>
-                <input type="number" name="" id="phone" placeholder="Enter your Phone Number" autocomplete="off">
+                <input type="number" name="" id="phone" placeholder="Enter your Phone Number" autocomplete="off" required>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error Message</small>
@@ -51,7 +51,7 @@
 
             <div class="form-control">
                 <label>Upload File</label>
-                <input type="file" name="" id="file" autocomplete="off">
+                <input type="file" name="" id="file" autocomplete="off" required>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error Message</small>
@@ -101,6 +101,8 @@
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             validate();
+
+	    window.location.href = "payment.html";
         })
         
         const sendData = (sRate, count) => {
