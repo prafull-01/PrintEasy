@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+        integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>PRINT EASY </h2>
+        </div>
+        <form class="form" id="form">
+            <div class="form-control">
+                <label>Name</label>
+                <input type="text" name="" id="name" placeholder="Enter your Name" autocomplete="off">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error Message</small>
+            </div>
+
+            <div class="form-control">
+                <label>System Id </label>
+                <input type="number" name="" id="systemid" placeholder="Enter your System Id" autocomplete="off">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error Message</small>
+            </div>
+
+            <div class="form-control">
+                <label>Email</label>
+                <input type="email" name="" id="email" placeholder="Enter your Email" autocomplete="off">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error Message</small>
+            </div>
+
+            <div class="form-control">
+                <label>Phone Number</label>
+                <input type="number" name="" id="phone" placeholder="Enter your Phone Number" autocomplete="off">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error Message</small>
+            </div>
+
+            <div class="form-control">
+                <label>Upload File</label>
+                <input type="file" name="" id="file" autocomplete="off">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error Message</small>
+            </div>
+
+            <div class="form-control">
+                <label>Select Print Type</label>
+                <select name="printtype" id="printtype" required autocomplete="off">
+                    <option value="">--Choose from options</option>
+                    <option value="Color Print">Color Print</option>
+                    <option value="Black and White Print">Black and White Print</option>
+                </select>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error Message</small>
+            </div>
+            <div class="form-control">
+                <label>Select Page Type</label>
+                <select name="pagetype" id="pagetype" required autocomplete="off">
+                    <option value="">--Choose from options</option>
+                    <option value="A3">A3</option>
+                    <option value="A4">A4</option>
+                    <option value="A5">A5</option>
+
+                </select>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error Message</small>
+            </div>
+            <input type="submit" value="Next" class="btn" name="">
+        </form>
+    </div>
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        const form = document.getElementById('form');
+        const name = document.getElementById('name');
+        const systemid = document.getElementById('systemid');
+        const email = document.getElementById('email');
+        const phone = document.getElementById('phone');
+        const file = document.getElementById('file');
+        const printtype = document.getElementById('printtype');
+        const pagetype = document.getElementById('pagetype');
+
+        //add event
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            validate();
+        })
+        
+        const sendData = (sRate, count) => {
+            if (sRate === count){
+                alert('File uploaded!');
+                swal("Thank You! ", "Proceeding to Payment..", "success");
+                location.href=`form.html`
+            }
+        }
+
+        //for final data validation
+        const successMsg = () => {
+            let formCon = document.getElementsByClassName('form-control');
+            var count = formCon.length - 1;
+            for (var i=0; i< formCon.length; i++) {
+                if (formCon[i].className === "form-control success"){
+                    var sRate = 0 + i;
+                    console.log(sRate);
+                    sendData(count);
+                }else{
+                   return false;
+                }
+            }
+        }
+
+
+
+        const isEmail= (emailval) =>{
+            var atSymbol = emailval.indexOf('@');
+            if(atSymbol<1) return false;
+            var dot = emailval.lastIndexOf('.');
+            if(dot<= atSymbol+2)return false;
+            if(dot === emailval.length -1)return false;
+            return true;
+
+
+        }
+        const validate = () => {
+            const nameval = name.value.trim();
+            const systemidval = systemid.value.trim();
+            const emailval = email.value.trim();
+            const phoneval = phone.value.trim();
+            const fileval = file.value.trim();
+            const printtypeval = printtype.value.trim();
+            const pagetypeval = pagetype.value.trim();
+
+            if (nameval === ""){
+                setErrorMsg(name,'Name cannot be blank');
+            } else if (nameval.length <= 2) {
+                    setErrorMsg(name, 'Name min 3 char');
+            } else {
+                setSuccessMsg(name);
+            }
+
+            if (systemidval === ""){
+                setErrorMsg(systemid,'System Id cannot be blank');
+            } else if (systemidval.length <=6) {
+                    setErrorMsg(systemid, 'System Id min 6 char');
+            } else {
+                setSuccessMsg(systemid);
+            }
+
+            if (emailval === ""){
+                setErrorMsg(email,'Email cannot be blank');
+            } else if (!isEmail(emailval)) {
+                    setErrorMsg(email, 'Not a valid email');
+            } else {
+                setSuccessMsg(email);
+            }
+
+            
+
+            if (phoneval === ""){
+                setErrorMsg(phone,'Phone Number cannot be blank');
+            } else if (phoneval.length != 10) {
+                    setErrorMsg(phone, 'Phone Number should have 10 digits ');
+            } else {
+                setSuccessMsg(phone);
+            }
+
+            if (fileval === ""){
+                setErrorMsg(file,'Upload your file');
+            } else {
+                setSuccessMsg(file);
+            }
+
+            successMsg();
+
+
+            // if (printtypeval === ""){
+            //     setErrorMsg(printtype,'Choose from options');
+            // } else {
+            //     setSuccessMsg(printtype);
+            // }
+            // if (pagetypeval === ""){
+            //     setErrorMsg(pagetype,'Choose from options');
+            // } else {
+            //     setSuccessMsg(pagetype);
+            // }
+            
+
+        }    
+
+        function setErrorMsg(input, errormsgs){
+            const formControl=input.parentElement;
+            const small=formControl.querySelector('small');
+            formControl.className="form-control error";
+            small.innerText=errormsgs;
+
+        }
+
+        function setSuccessMsg(input){
+            const formControl = input.parentElement;
+            formControl.className="form-control success";
+        
+        
+        }
+    
+
+    </script>
+</body>
+
+</html>
