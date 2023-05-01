@@ -16,10 +16,10 @@
         <div class="header">
             <h2>PRINT EASY </h2>
         </div>
-        <form class="form" id="form">
+        <form class="form" id="form" action="" method="post" enctype="multipart/form-data">
             <div class="form-control">
                 <label>Name</label>
-                <input type="text" name="" id="name" placeholder="Enter your Name" autocomplete="off" required>
+                <input type="text" name="name" id="name" placeholder="Enter your Name" autocomplete="off" required>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error Message</small>
@@ -27,7 +27,7 @@
 
             <div class="form-control">
                 <label>System Id </label>
-                <input type="number" name="" id="systemid" placeholder="Enter your System Id" autocomplete="off" required>
+                <input type="number" name="system_id" id="systemid" placeholder="Enter your System Id" autocomplete="off" required>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error Message</small>
@@ -35,7 +35,7 @@
 
             <div class="form-control">
                 <label>Email</label>
-                <input type="email" name="" id="email" placeholder="Enter your Email" autocomplete="off" required>
+                <input type="email" name="email_id" id="email" placeholder="Enter your Email" autocomplete="off" required>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error Message</small>
@@ -43,7 +43,7 @@
 
             <div class="form-control">
                 <label>Phone Number</label>
-                <input type="number" name="" id="phone" placeholder="Enter your Phone Number" autocomplete="off" required>
+                <input type="number" name="phone_number" id="phone" placeholder="Enter your Phone Number" autocomplete="off" required>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error Message</small>
@@ -51,7 +51,7 @@
 
             <div class="form-control">
                 <label>Upload File</label>
-                <input type="file" name="" id="file" autocomplete="off" required>
+                <input type="file" name="file" id="file" autocomplete="off" required>
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <small>Error Message</small>
@@ -59,7 +59,7 @@
 
             <div class="form-control">
                 <label>Select Print Type</label>
-                <select name="printtype" id="printtype" required autocomplete="off">
+                <select name="print_type" id="printtype" required autocomplete="off">
                     <option value="">--Choose from options</option>
                     <option value="Color Print">Color Print</option>
                     <option value="Black and White Print">Black and White Print</option>
@@ -70,7 +70,7 @@
             </div>
             <div class="form-control">
                 <label>Select Page Type</label>
-                <select name="pagetype" id="pagetype" required autocomplete="off">
+                <select name="pagetype" id="page_type" required autocomplete="off">
                     <option value="">--Choose from options</option>
                     <option value="A3">A3</option>
                     <option value="A4">A4</option>
@@ -97,13 +97,18 @@
         const printtype = document.getElementById('printtype');
         const pagetype = document.getElementById('pagetype');
 
-        //add event
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            validate();
+        const queryParams = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+        });
+        form.action = `/api/v1/shop/${queryParams.shop_id}`;
 
-	    window.location.href = "payment.html";
-        })
+        //add event
+        // form.addEventListener('submit', (event) => {
+        //     event.preventDefault();
+        //     validate();
+
+	    //     window.location.href = "payment.html";
+        // })
         
         const sendData = (sRate, count) => {
             if (sRate === count){
