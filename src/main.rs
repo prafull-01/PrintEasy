@@ -91,13 +91,16 @@ async fn init_print_job_for_shop(
             Some("phone_number") => args.phone_number = field.text().await.unwrap(),
             Some("email_id") => args.email_id = field.text().await.unwrap(),
             Some("file") => {
+                args.file_type = field.content_type().map(|s| s.to_owned());
+                args.file_name = field.file_name().map(|s| s.to_owned());
                 while let Some(data) = field.chunk().await.unwrap() {
                     args.file.extend(data);
                 }
             }
             Some("page_type") => args.page_type = field.text().await.unwrap().try_into().unwrap(),
             Some("print_type") => args.print_type = field.text().await.unwrap().try_into().unwrap(),
-            Some(_) | None => {}
+            Some(test) => println!("{test}"),
+            None => {}
         }
     }
 

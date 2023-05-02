@@ -53,6 +53,8 @@ pub struct NewPrintArgs {
     pub phone_number: String,
     pub email_id: String,
     pub file: Vec<u8>,
+    pub file_type: Option<String>,
+    pub file_name: Option<String>,
     pub page_type: PageType,
     pub print_type: PrintType,
 }
